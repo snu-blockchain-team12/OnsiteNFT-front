@@ -36,7 +36,7 @@ function Index() {
       <EuiFlexItem grow={true}>
         <EuiFlexGrid>
           {products.map((p) => (
-            <GridItem product={p} />
+              <GridItem product={p} />
           ))}
           {/* </EuiFlexGroup> */}
         </EuiFlexGrid>

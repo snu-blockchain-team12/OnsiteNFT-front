@@ -52,7 +52,7 @@ function Login() {
   };
 
   return (
-    <EuiFlexGroup>
+    <EuiFlexGroup justifyContent="center">
       <EuiFlexItem grow={false}>
         <EuiFlexGroup direction="column" size={{ width: "50%" }}>
           <EuiFlexItem>

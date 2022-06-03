@@ -37,12 +37,12 @@ function App() {
             <Router>
                 <div className="app">
                     <Header />
-                    
                     <EuiPage paddingSize="none" style={{ height: '100%'}}>
                         {/* <EuiPageSideBar>
-                            <SideNav />
                         </EuiPageSideBar> */}
-                        <EuiPageBody panelled paddingSize="none">
+                        <EuiPageBody panelled pauseState
+                        
+                        ddingSize="none">
                             <EuiPageBody paddingSize="m">
                                 <EuiPageContent
                                     hasBorder={false}
