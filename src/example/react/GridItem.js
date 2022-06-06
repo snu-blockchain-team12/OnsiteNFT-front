@@ -1,5 +1,46 @@
 import { EuiFlexGroup, EuiFlexItem, EuiText, EuiButton, EuiPanel, EuiCard } from "@elastic/eui";
 
+window.onload  = function() {
+  if(window.ethereum !=="undefined") {
+      this.ethereum.on("accountsChanged", handleAccountsChanged)
+      
+      window.ethereum.request({method: "eth_accounts"})
+          .then(handleAccountsChanged)
+          .catch((err)=>{
+              console.log(err)
+          })
+  }
+}
+
+const handleAccountsChanged = (a) => {
+  console.log("accounts changed")
+  accounts = a
+}
+
+let accounts;
+async function connectWallet() {
+  accounts = await window.ethereum.request({method: "eth_requestAccounts"})
+    .catch((err)=>{
+    // 계정 없으면 오류를 리턴
+    console.log(err.code)
+  })
+  console.log(accounts)
+  checkBalance()
+}
+
+async function checkBalance() {
+  let balance = await window.ethereum.request( {method: "eth_getBalance",
+      params: [
+          accounts[0],
+          'latest'
+      ]
+}).catch((err)=>{
+  console.log(err)
+})
+  console.log(parseInt(balance)/Math.pow(10,18))
+}
+
+
 const Content = (props) => {
   function get_url_extension(url) {
     return url.split(/[#?]/)[0].split(".").pop().trim();
@@ -33,12 +74,15 @@ const Content = (props) => {
 };
 
 const GridItem = (props) => {
+
+  let owner = (props.product.price*100)%2;
+
   return (
     <EuiFlexItem>
       <EuiPanel hasShadow={true} hasBorder={true}>
         <EuiFlexGroup direction="column">
           <EuiFlexItem>
-            <EuiFlexGroup direction="row" justifyContent="space-between">
+            <EuiFlexGroup direction="row" justifyContent="spaceBetween">
               <EuiFlexItem>
                 <span style={{ fontWeight: 600, fontSize: 22 }}>{props.product.title}</span>
               </EuiFlexItem>
@@ -54,6 +98,16 @@ const GridItem = (props) => {
           </EuiFlexItem>
           <EuiFlexItem>
             <Content src={props.product.link} />
+          </EuiFlexItem>
+          <EuiFlexItem> 
+            <EuiFlexGroup direction="row" justifyContent="spaceBetween" style={{'padding':'0px 16px 16px 16px'}}>
+              <span style={{ fontWeight: 600, "align-self": "center" }}>
+                  {owner ? 'Not available' : 'Available'}
+                </span>
+              <EuiButton size="m" fill={!owner} onClick={connectWallet}>
+                <span style={{ fontWeight: 500, fontSize: 16 }}> Buy </span>
+              </EuiButton>
+            </EuiFlexGroup>
           </EuiFlexItem>
         </EuiFlexGroup>
       </EuiPanel>

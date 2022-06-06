@@ -18,6 +18,7 @@ import {
   } from "react-router-dom";
 
 import Header from './components/Header';
+import SubHeader from './components/SubHeader';
 
 import Index from './example/react/index';
 import Login from './example/react/login';
@@ -37,6 +38,8 @@ function App() {
             <Router>
                 <div className="app">
                     <Header />
+                    <SubHeader />
+
                     <EuiPage paddingSize="none" style={{ height: '100%'}}>
                         {/* <EuiPageSideBar>
                         </EuiPageSideBar> */}

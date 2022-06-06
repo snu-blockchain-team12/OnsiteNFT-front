@@ -86,38 +86,29 @@ function Header() {
         sections={[
           {
             items: [
-              <EuiHeaderSectionItem>
-                <EuiHeaderSectionItemButton onClick={() => setNavToggle(!navToggle)}>
-                  <EuiIcon type="list" color="ghost" size="xl" style={{ "margin-left": "10px" }} />
-                </EuiHeaderSectionItemButton>
-              </EuiHeaderSectionItem>,
+              <EuiHeaderSectionItemButton onClick={() => setNavToggle(!navToggle)}>
+                <EuiIcon type="list" color="ghost" size="xl" style={{ "margin-left": "10px" }} />
+              </EuiHeaderSectionItemButton>
             ],
             borders: "none",
           },
           {
             items: [
-              <EuiHeaderSectionItem>
-                <EuiHeaderLogo iconType={"logoElasticStack"} onClick={() => moveToHome()}>
-                  <span style={{ fontWeight: 500, fontSize: 24 }}> Onsite NFT </span>
-                </EuiHeaderLogo>
-              </EuiHeaderSectionItem>,
-              // <EuiHeaderLinks aria-label="App navigation dark theme example">
-              //   <EuiHeaderLink isActive>Docs</EuiHeaderLink>
-              //   <EuiHeaderLink>Code</EuiHeaderLink>
-              //   <EuiHeaderLink iconType="help"> Help</EuiHeaderLink>
-              // </EuiHeaderLinks>,
+              <EuiHeaderLogo iconType={"logoElasticStack"} onClick={() => moveToHome()}>
+                <span style={{ fontWeight: 500, fontSize: 24 }}> Onsite NFT </span>
+              </EuiHeaderLogo>
             ],
             borders: "none",
           },
           {
             items: [
-              <EuiHeaderSectionItem>
+              <>
                 {user === "" ? (
-                  <>
-                    <EuiButton size="m" minWidth="72px" fill onClick={() => moveToLogin()}>
-                      <span style={{ fontWeight: 500, fontSize: 16 }}> login </span>
-                    </EuiButton>
-                  </>
+                <>
+                  <EuiButton size="m" minWidth="72px" fill onClick={() => moveToLogin()}>
+                    <span style={{ fontWeight: 500, fontSize: 16 }}> login </span>
+                  </EuiButton>
+                </>
                 ) : (
                   <>
                     <EuiHeaderSectionItem>
@@ -132,8 +123,9 @@ function Header() {
 
                   </EuiButton> */}
                   </>
-                )}
-              </EuiHeaderSectionItem>,
+                )
+                }
+              </>
             ],
             borders: "none",
           },
