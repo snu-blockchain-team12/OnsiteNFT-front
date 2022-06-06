@@ -52,9 +52,9 @@ function Login() {
   };
 
   return (
-    <EuiFlexGroup justifyContent="center">
-      <EuiFlexItem grow={false}>
-        <EuiFlexGroup direction="column" size={{ width: "50%" }}>
+    // <EuiFlexGroup justifyContent="center">
+    //   <EuiFlexItem grow={false}>
+        <EuiFlexGroup grow={false} justifyContent="center" direction="column" size={{ width: "50%" }}>
           <EuiFlexItem>
             <EuiFieldText
               placeholder="username을 입력해주세요"
@@ -88,8 +88,8 @@ function Login() {
             <p>{isSubmitted}</p>
           </EuiFlexItem>
         </EuiFlexGroup>
-      </EuiFlexItem>
-    </EuiFlexGroup>
+    //   </EuiFlexItem>
+    // </EuiFlexGroup>
   );
 }
 
