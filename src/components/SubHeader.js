@@ -41,6 +41,7 @@ function SubHeader() {
   const handleAccountsChanged = (a) => {
     console.log("accounts changed")
     setAccounts(a)
+    localStorage.setItem("metamaskAccount", a);
     checkBalance(a);
   }
 
@@ -50,6 +51,7 @@ function SubHeader() {
       console.log("res : ", res)
       if (a!== accounts){
         setAccounts(a);
+        localStorage.setItem("metamaskAccount", a);
       }
     })
     .catch((err)=>{

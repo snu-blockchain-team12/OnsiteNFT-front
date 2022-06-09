@@ -1,81 +1,61 @@
 import { EuiFlexGroup, EuiFlexItem, EuiText, EuiButton, EuiPanel, EuiCard } from "@elastic/eui";
-
-window.onload  = function() {
-  if(window.ethereum !=="undefined") {
-      this.ethereum.on("accountsChanged", handleAccountsChanged)
-      
-      window.ethereum.request({method: "eth_accounts"})
-          .then(handleAccountsChanged)
-          .catch((err)=>{
-              console.log(err)
-          })
-  }
-}
-
-const handleAccountsChanged = (a) => {
-  console.log("accounts changed")
-  accounts = a
-}
-
-let accounts;
-async function connectWallet() {
-  accounts = await window.ethereum.request({method: "eth_requestAccounts"})
-    .catch((err)=>{
-    // 계정 없으면 오류를 리턴
-    console.log(err.code)
-  })
-  console.log(accounts)
-  checkBalance()
-}
-
-async function checkBalance() {
-  let balance = await window.ethereum.request( {method: "eth_getBalance",
-      params: [
-          accounts[0],
-          'latest'
-      ]
-}).catch((err)=>{
-  console.log(err)
-})
-  console.log(parseInt(balance)/Math.pow(10,18))
-}
-
+import API from "../../API";
+import Cookies from "js-cookie";
 
 const Content = (props) => {
-  function get_url_extension(url) {
-    return url.split(/[#?]/)[0].split(".").pop().trim();
-  }
-  let ext = get_url_extension(props.src);
+  // function get_url_extension(url) {
+  //   return url.split(/[#?]/)[0].split(".").pop().trim();
+  // }
+  // let ext = get_url_extension(props.src);
+  // let ext = props.src;
 
-  let img_ext = ["jpg", "png", "jpeg", "gif", "avif"];
-  let vid_ext = ["mp4", "mkv", "avi", "flv"];
+  // let img_ext = ["jpg", "png", "jpeg", "gif", "avif"];
+  // let vid_ext = ["mp4", "mkv", "avi", "flv"];
 
-  let imgsrc = "https://upload.wikimedia.org/wikipedia/en/7/70/Campbell%27s_Tomato_Juice_Box._1964._Synthetic_polymer_paint_and_silkscreen_ink_on_wood.jpg";
-  let vidsrc = "http://tcpschool.com/lectures/sample_video_mp4.mp4";
+  // let imgsrc = "https://upload.wikimedia.org/wikipedia/en/7/70/Campbell%27s_Tomato_Juice_Box._1964._Synthetic_polymer_paint_and_silkscreen_ink_on_wood.jpg";
+  // let vidsrc = "http://tcpschool.com/lectures/sample_video_mp4.mp4";
 
-  if (img_ext.includes(ext)) {
-    return <img src={imgsrc} style={{ width: "360px", height: "auto" }}></img>;
-  } 
-  else if (vid_ext.includes(ext)) {
-    return (
-      <video controls style={{ width: "360px", height: "auto" }}>
-        <source src={vidsrc}></source>
-      </video>
-    );
-  } 
-  else {
-    return (
-      <img
-        src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-        style={{ width: "360px", height: "180px" }}
-      ></img>
-    );
-  }
+  return <img src={props.src} style={{ width: "360px", height: "auto" }}></img>;
+
+  // if (img_ext.includes(ext)) {
+  //   return <img src={imgsrc} style={{ width: "360px", height: "auto" }}></img>;
+  // } 
+  // else if (vid_ext.includes(ext)) {
+  //   return (
+  //     <video controls style={{ width: "360px", height: "auto" }}>
+  //       <source src={vidsrc}></source>
+  //     </video>
+  //   );
+  // } 
+  // else {
+  //   return (
+  //     <img
+  //       src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+  //       style={{ width: "360px", height: "180px" }}
+  //     ></img>
+  //   );
+  // }
 };
 
 const GridItem = (props) => {
 
-  let owner = (props.product.price*100)%2;
+  const handleBuy = (event) => {
+    API.post(
+      `/buy/${props.product.id}`,
+      {
+        user: Cookies.get('user'),
+        account: localStorage.getItem("metamaskAccount")
+      }
+    )
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  let owner = props.product.owner;
 
   return (
     <EuiFlexItem>
@@ -99,16 +79,18 @@ const GridItem = (props) => {
           <EuiFlexItem>
             <Content src={props.product.link} />
           </EuiFlexItem>
-          <EuiFlexItem> 
-            <EuiFlexGroup direction="row" justifyContent="spaceBetween" style={{'padding':'0px 16px 16px 16px'}}>
-              <span style={{ fontWeight: 600, "align-self": "center" }}>
-                  {owner ? 'Not available' : 'Available'}
-                </span>
-              <EuiButton size="m" fill={!owner} onClick={connectWallet}>
-                <span style={{ fontWeight: 500, fontSize: 16 }}> Buy </span>
-              </EuiButton>
-            </EuiFlexGroup>
-          </EuiFlexItem>
+          {props.hideBuy === true ? <></> :
+            <EuiFlexItem> 
+              <EuiFlexGroup direction="row" justifyContent="spaceBetween" style={{'padding':'0px 16px 16px 16px'}}>
+                <span style={{ fontWeight: 600, "align-self": "center" }}>
+                    {owner !== '' ? 'Not available' : 'Available'}
+                  </span>
+                <EuiButton size="m" fill={!owner} onClick={handleBuy}>
+                  <span style={{ fontWeight: 500, fontSize: 16 }}> Buy </span>
+                </EuiButton>
+              </EuiFlexGroup>
+            </EuiFlexItem>
+          }
         </EuiFlexGroup>
       </EuiPanel>
     </EuiFlexItem>

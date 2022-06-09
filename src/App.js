@@ -21,6 +21,7 @@ import Header from './components/Header';
 import SubHeader from './components/SubHeader';
 
 import Index from './example/react/index';
+import MyNFT from './example/react/mynft';
 import Login from './example/react/login';
 
 import { Web3ReactProvider } from '@web3-react/core';
@@ -58,6 +59,9 @@ function App() {
                                         <Switch>
                                             <Route path="/login">
                                                 <Login />
+                                            </Route>
+                                            <Route path="/my">
+                                                <MyNFT />
                                             </Route>
                                             <Route exact path="/">
                                                 <Index />

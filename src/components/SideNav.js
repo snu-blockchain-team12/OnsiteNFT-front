@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { React, useEffect, useState } from "react";
 
 import {
   EuiCollapsibleNav,
@@ -12,17 +12,17 @@ import {
 import { EuiListGroup } from "@elastic/eui";
 
 export const ReactExampleNav = [
+  { label: "ALL NFTs", href: "/" },
   { label: "로그인", href: "/login" },
-  { label: "로그인", href: "/login" },
-  { label: "로그인", href: "/login" },
+  { label: "나의 NFT", href: "/my" },
+  //{ label: "로그인", href: "/login" },
 ];
 
 export const DeploymentsGroup = (
   <EuiCollapsibleNavGroup
     title={
       <span>
-        <small style={{ fontWeight: "normal" }}>메뉴</small> <br />
-        <strong>샘플 코드 목록</strong>
+        <strong>Onsite NFT</strong>
       </span>
     }
     background="dark"
@@ -47,7 +47,7 @@ const SideNav = (props) => {
         onClose={() => setNavIsOpen(false)}
       >
         {DeploymentsGroup}
-        <EuiCollapsibleNavGroup title="리액트 기본 예시" isCollapsible={true} initialIsOpen={true}>
+        <EuiCollapsibleNavGroup title="Menu" isCollapsible={false} initialIsOpen={true}>
           <EuiListGroup
             listItems={ReactExampleNav}
             maxWidth="none"
