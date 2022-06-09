@@ -50,7 +50,7 @@ const Content = (props) => {
   let img_ext = ["jpg", "png", "jpeg", "gif", "avif"];
   let vid_ext = ["mp4", "mkv", "avi", "flv"];
 
-  let imgsrc = "https://upload.wikimedia.org/wikipedia/commons/a/ab/1000_white_flags_general.jpg";
+  let imgsrc = "https://upload.wikimedia.org/wikipedia/en/7/70/Campbell%27s_Tomato_Juice_Box._1964._Synthetic_polymer_paint_and_silkscreen_ink_on_wood.jpg";
   let vidsrc = "http://tcpschool.com/lectures/sample_video_mp4.mp4";
 
   if (img_ext.includes(ext)) {

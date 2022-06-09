@@ -23,17 +23,20 @@ function SubHeader() {
   let [accounts, setAccounts] = useState("");
   let [balance, setBalance] = useState(0);
 
-  window.onload  = function() {
-    if(window.ethereum !=="undefined") {
-        this.ethereum.on("accountsChanged", handleAccountsChanged)
-        
-        window.ethereum.request({method: "eth_accounts"})
-            .then(handleAccountsChanged)
-            .catch((err)=>{
-                console.log(err)
-            })
+  useEffect(() => {
+    window.onload  = function() {
+      if(window.ethereum !=="undefined") {
+          this.ethereum.on("accountsChanged", handleAccountsChanged)
+          
+          window.ethereum.request({method: "eth_accounts"})
+              .then(handleAccountsChanged)
+              .catch((err)=>{
+                  console.log(err)
+              })
+      }
     }
-  }
+  }, []);
+
 
   const handleAccountsChanged = (a) => {
     console.log("accounts changed")
@@ -43,7 +46,12 @@ function SubHeader() {
 
   async function connectWallet() {
     let a = await window.ethereum.request({method: "eth_requestAccounts"})
-    .then(setAccounts(a))
+    .then((res)=>{
+      console.log("res : ", res)
+      if (a!== accounts){
+        setAccounts(a);
+      }
+    })
     .catch((err)=>{
         // 계정 없으면 오류를 리턴
         console.log(err.code)

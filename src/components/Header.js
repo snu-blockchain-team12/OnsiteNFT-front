@@ -20,6 +20,7 @@ import {
 import Cookies from "js-cookie";
 
 import SideNav from './SideNav.js';
+import SubHeader from './SubHeader.js';
 
 const LoginPopup = (props) => {
   const history = useHistory();
@@ -131,6 +132,7 @@ function Header() {
           },
         ]}
       />
+
       <SideNav navToggle={navToggle}/>
     </>
   );

@@ -52,44 +52,33 @@ function Login() {
   };
 
   return (
-    // <EuiFlexGroup justifyContent="center">
-    //   <EuiFlexItem grow={false}>
-        <EuiFlexGroup grow={false} justifyContent="center" direction="column" size={{ width: "50%" }}>
-          <EuiFlexItem>
-            <EuiFieldText
-              placeholder="username을 입력해주세요"
-              prepend={["username"]}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </EuiFlexItem>
-          <EuiFlexItem>
-            <EuiFieldPassword
-              placeholder="비밀번호를 입력해주세요"
-              prepend={["password"]}
-              type={dual ? "dual" : undefined}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              aria-label="Use aria labels when no actual label is in use"
-            />
-          </EuiFlexItem>
-          <EuiFlexItem>
-            <EuiButton
-              type="submit"
-              fill={typeof username !== "undefined" && typeof password !== "undefined"}
-              size={"s"}
-              iconType={"push"}
-              onClick={handleSubmit}
-            >
-              로그인
-            </EuiButton>
-          </EuiFlexItem>
-          <EuiFlexItem>
-            <p>hello</p>
-            <p>{isSubmitted}</p>
-          </EuiFlexItem>
-        </EuiFlexGroup>
-    //   </EuiFlexItem>
-    // </EuiFlexGroup>
+    <EuiFlexGroup grow={false} alignItems="center" direction="column">
+      <EuiFlexItem>
+        <EuiFieldText
+          placeholder="username을 입력해주세요"
+          prepend={["username"]}
+          onChange={(e) => setUsername(e.target.value)}
+          />
+        <br/>
+        <EuiFieldPassword
+          placeholder="비밀번호를 입력해주세요"
+          prepend={["password"]}
+          type={dual ? "dual" : undefined}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          aria-label="Use aria labels when no actual label is in use"
+        />
+      </EuiFlexItem>
+        <EuiButton
+          type="submit"
+          fill={typeof username !== "undefined" && typeof password !== "undefined"}
+          size={"s"}
+          iconType={"push"}
+          onClick={handleSubmit}
+        >
+          로그인
+        </EuiButton>          
+    </EuiFlexGroup>
   );
 }
 
